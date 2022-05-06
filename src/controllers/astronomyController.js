@@ -22,9 +22,28 @@ const getOnePicture = (req, res) => {
     res.send('Get an existing Picture');
 };
 
-const createNewPicture = (req, res) => {
-    const createdPicture = astronomyService.createNewPicture();
-    res.send('Create a new Picture');
+const createNewPicture = async (req, res) => {
+    const {body} = req;
+    if (!body.explanation ||
+        !body.hdurl ||
+        !body.title ||
+        !body.url) 
+      {
+        return;
+      }
+      /*
+      const newPicture = {
+        name: body.name,
+        mode: body.mode,
+        equipment: body.equipment,
+        exercises: body.exercises,
+        trainerTips: body.trainerTips,
+      };
+      */
+      
+      const createdPicture = await astronomyService.createNewPicture(body);
+      
+      res.status(201).send({ status: "OK", picture: createdPicture });
 };
 
 const updateOnePicture = (req, res) => {

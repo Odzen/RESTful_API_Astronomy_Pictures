@@ -7,7 +7,6 @@ const PictureDB = require("../database/Picture");
 const getAllPictures = async () => {
     try{
         const allPictures = await PictureDB.getAllPictures();
-        //console.log(allPictures);
         return allPictures;
     }
     catch(e){
@@ -19,8 +18,14 @@ const getOnePicture = () => {
     return;
 };
 
-const createNewPicture = () => {
-    return;
+const createNewPicture = async (newPicture) => {
+    try{
+        const createdPicture = await PictureDB.createNewPicture(newPicture);
+        return createdPicture;
+    }
+    catch(e){
+        console.log("ERROR getting Pictures", e);
+    };
 };
 
 const updateOnePicture = () => {

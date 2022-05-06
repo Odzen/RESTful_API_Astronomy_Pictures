@@ -21,8 +21,14 @@ async function main() {
 
 main();
 
+// Delete all, for testing
+const deleteAllPictures = async () => {
+    await Picture.deleteMany({});
+}
+
 // Get initial images and save them into the DB
 const getSaveAllInitialPictures = async () => {
+    deleteAllPictures();
     const Data =  await DB.getAllPicturesNasa();
     let count = 0;
     for (element of Data){
@@ -37,16 +43,61 @@ const getSaveAllInitialPictures = async () => {
 };
 getSaveAllInitialPictures();
 
-// Working with database to make the database consistent
+
+
+
+// CRUD
+// Working with database to make the database consistent -- 
+// Create
+let isInDB = false;
+const createNewPicture = async (newPicture) => {
+    const isAlreadyAdded = async () => {
+        const {title} =  newPicture;
+        const newTitle = await Picture.find({title : title});
+        if(newTitle.length != 0){
+            isInDB = true;
+        }else{
+            isInDB = false;
+        }
+    };
+    
+    isAlreadyAdded();
+
+    if(isInDB){
+        console.log("Is in DB");
+        return;
+    }else{
+        console.log("Is not in DB");
+    }
+    
+    
+    
+    try{
+        const newPictureToInsert = new Picture(newPicture);
+        await newPictureToInsert.save();
+        console.log("Saved New Picture");
+        return newPicture;
+    }
+    catch(e){
+        console.log("Error trying to create new Picture", e);
+    }
+    
+};
+
+
+// Read
 const getAllPictures = async () => {
     const pictures = await Picture.find({});
+    console.log("Current Length Collection: ", pictures.length);
     return pictures;
 };
 
 
 
-//console.log(getAllPictures());
 
 // Exporting methods for certain database operations
 // used by the Service Layer.
-module.exports = { getAllPictures };
+module.exports = { 
+    getAllPictures,
+    createNewPicture
+ };

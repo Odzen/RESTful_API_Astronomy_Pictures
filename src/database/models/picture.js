@@ -15,8 +15,7 @@ const pictureSchema = new mongoose.Schema({
     },
     title : {
         type : String,
-        required : true,
-        lowercase : true
+        required : true
     },
     url :{
         type : String,
