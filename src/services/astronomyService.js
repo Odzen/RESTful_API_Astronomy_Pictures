@@ -44,8 +44,14 @@ const updateOnePicture = async (id, body) => {
     }
 };
 
-const deleteOnePicture = () => {
-    return;
+const deleteOnePicture = async (id) => {
+    try{
+        const pictureDeleted = await PictureDB.deleteOnePicture(id);
+        return pictureDeleted;
+    }
+    catch(e){
+        console.log("ERROR Deleting Picture", e);
+    }
 };
 
 // Export methods used by the controller

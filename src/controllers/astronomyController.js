@@ -52,9 +52,14 @@ const updateOnePicture = async (req, res) => {
     res.send({ status: "OK", picture: updatedPicture });
 };
 
-const deleteOnePicture = (req, res) => {
-    astronomyService.deleteOnePicture();
-    res.send('Delete an existing Picture');
+const deleteOnePicture = async (req, res) => {
+    const id = req.params.pictureId;
+    if(!id){
+        return;
+    }
+    await astronomyService.deleteOnePicture(id);
+    console.log("Picture Deleted");
+    res.status(204).send({ status: "OK" });
 };
 
 // Export methods used by the routes

@@ -97,13 +97,14 @@ const getOnePicture = async (id) => {
 
 // Update
 const updateOnePicture = async (id, body) => {
-    //console.log(id, body);
     const pictureUpdated = await Picture.findByIdAndUpdate( id , body, {runValidators : true, new : true});
-    console.log(pictureUpdated);
     return pictureUpdated;
-
 };
 
+// Delete
+const deleteOnePicture = async (id) => {
+    await Picture.findByIdAndDelete(id);
+};
 
 // Exporting methods for certain database operations
 // used by the Service Layer.
@@ -112,4 +113,5 @@ module.exports = {
     createNewPicture,
     getOnePicture,
     updateOnePicture,
+    deleteOnePicture
  };
