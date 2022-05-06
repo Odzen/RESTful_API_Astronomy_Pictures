@@ -3,12 +3,15 @@ const express = require("express");
 
 const app = express();
 
+// Routes for version 1
+const v1PictureRouter = require("./v1/routes/astronomyRoutes");
+
 const PORT = process.env.PORT || 3000; 
 
-// For testing purposes
-app.get("/", (req, res) => { 
-    res.send("<h2>It's Working!</h2>"); 
-}); 
+
+app.use("/api/v1/pictures", v1PictureRouter);
+
+
 
 app.listen(PORT, () => { 
     console.log(`API is listening on port ${PORT}`); 
