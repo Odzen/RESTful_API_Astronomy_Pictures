@@ -4,9 +4,10 @@
 const PictureDB = require("../database/Picture");
 
 
-const getAllPictures = async () => {
+const getAllPictures = async (filterParams) => {
+    console.log(filterParams);
     try{
-        const allPictures = await PictureDB.getAllPictures();
+        const allPictures = await PictureDB.getAllPictures(filterParams);
         return allPictures;
     }
     catch(e){
@@ -20,7 +21,6 @@ const getOnePicture = async (id) => {
         return picture;
     }
     catch(e){
-        console.log("ERR Serv");
         throw e;
     };
 };

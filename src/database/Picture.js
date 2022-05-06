@@ -81,8 +81,16 @@ const createNewPicture = async (newPicture) => {
 
 
 // Read
-const getAllPictures = async () => {
+const getAllPictures = async (filterParams) => {
     try{
+        const {title} = filterParams;
+        if(title){
+            const pictures = await Picture.find({title});
+            return pictures;
+        }
+        // Other if-statements will go here for different parameters
+        
+        // If it is not any filter
         const pictures = await Picture.find({});
         console.log("Current Length Collection: ", pictures.length);
         return pictures;
@@ -104,6 +112,7 @@ const getOnePicture = async (id) => {
 
 // Update
 const updateOnePicture = async (id, body) => {
+
     try{
         const pictureUpdated = await Picture.findByIdAndUpdate( id , body, {runValidators : true, new : true});
         return pictureUpdated;

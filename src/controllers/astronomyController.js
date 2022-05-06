@@ -6,8 +6,9 @@ const astronomyService = require('../services/astronomyService');
 
 
 const getAllPictures = async (req, res) => {
+    const queries = req.query;
     try{
-        const allPictures = await astronomyService.getAllPictures();
+        const allPictures = await astronomyService.getAllPictures(queries);
         res.send({ status: "OK", data: allPictures });
     }
     catch(e){
