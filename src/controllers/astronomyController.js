@@ -8,7 +8,6 @@ const astronomyService = require('../services/astronomyService');
 const getAllPictures = async (req, res) => {
     try{
         const allPictures = await astronomyService.getAllPictures();
-        //console.log(allPictures.length);
         res.send({ status: "OK", pictures: allPictures });
     }
     catch(e){
@@ -17,9 +16,15 @@ const getAllPictures = async (req, res) => {
     }
 };
 
-const getOnePicture = (req, res) => {
-    const picture = astronomyService.getOnePicture();
-    res.send('Get an existing Picture');
+const getOnePicture = async (req, res) => {
+    const id = req.params.pictureId;
+    try{
+        const picture = await astronomyService.getOnePicture(id);
+        res.send({ status: "OK", picture: picture });
+    }
+    catch(e){
+        console.log("ERROR getting Picture", e);
+    }
 };
 
 const createNewPicture = async (req, res) => {
@@ -31,15 +36,6 @@ const createNewPicture = async (req, res) => {
       {
         return;
       }
-      /*
-      const newPicture = {
-        name: body.name,
-        mode: body.mode,
-        equipment: body.equipment,
-        exercises: body.exercises,
-        trainerTips: body.trainerTips,
-      };
-      */
       
       const createdPicture = await astronomyService.createNewPicture(body);
       

@@ -7,12 +7,12 @@ const pictureController = require('../../controllers/astronomyController');
 
 router.get('/', pictureController.getAllPictures);
 
-router.get('/:workoutId', pictureController.getOnePicture);
+router.get('/:pictureId', pictureController.getOnePicture);
 
 router.post('/', pictureController.createNewPicture);
 
-router.patch('/:workoutId', pictureController.updateOnePicture);
+router.patch('/:pictureId', pictureController.updateOnePicture);
 
-router.delete('/:workoutId', pictureController.deleteOnePicture);
+router.delete('/:pictureId', pictureController.deleteOnePicture);
 
 module.exports = router;

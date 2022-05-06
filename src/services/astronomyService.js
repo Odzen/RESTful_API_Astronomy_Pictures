@@ -14,8 +14,15 @@ const getAllPictures = async () => {
     }
 };
 
-const getOnePicture = () => {
-    return;
+const getOnePicture = async (id) => {
+    //console.log("ServiceID:", id);
+    try{
+        const picture = await PictureDB.getOnePicture(id);
+        return picture;
+    }
+    catch(e){
+        console.log("ERROR getting Picture", e);
+    };
 };
 
 const createNewPicture = async (newPicture) => {
@@ -24,7 +31,7 @@ const createNewPicture = async (newPicture) => {
         return createdPicture;
     }
     catch(e){
-        console.log("ERROR getting Pictures", e);
+        console.log("ERROR Creating Picture", e);
     };
 };
 

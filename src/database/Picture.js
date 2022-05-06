@@ -92,6 +92,11 @@ const getAllPictures = async () => {
     return pictures;
 };
 
+const getOnePicture = async (id) => {
+    const picture = await Picture.findById(id);
+    return picture;
+};
+
 
 
 
@@ -99,5 +104,6 @@ const getAllPictures = async () => {
 // used by the Service Layer.
 module.exports = { 
     getAllPictures,
-    createNewPicture
+    createNewPicture,
+    getOnePicture
  };

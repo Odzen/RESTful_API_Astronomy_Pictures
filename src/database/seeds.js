@@ -2,7 +2,7 @@
 // Nasa APOD Database and send it over to the Database Layer
 
 const axios = require('axios').default;
-const qtyValuesToExtract = 20;
+const qtyValuesToExtract = 5;
 const DataFormat = [];
 const API_Key = 'A27LKizgGfaJWALLDxfKO8cxeZYxa0NCotVHHu2z';
 
