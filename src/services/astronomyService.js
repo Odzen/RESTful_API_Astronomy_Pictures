@@ -10,7 +10,7 @@ const getAllPictures = async () => {
         return allPictures;
     }
     catch(e){
-        console.log("ERROR getting Pictures", e);
+        throw e;
     }
 };
 
@@ -20,7 +20,8 @@ const getOnePicture = async (id) => {
         return picture;
     }
     catch(e){
-        console.log("ERROR getting Picture", e);
+        console.log("ERR Serv");
+        throw e;
     };
 };
 
@@ -49,7 +50,7 @@ const deleteOnePicture = async (id) => {
         await PictureDB.deleteOnePicture(id);
     }
     catch(e){
-        console.log("ERROR Deleting Picture", e);
+        throw e;
     }
 };
 
