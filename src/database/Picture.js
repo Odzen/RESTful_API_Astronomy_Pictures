@@ -10,12 +10,12 @@ const Picture = require('./models/picture');
 
 async function main() {
     try{
-        await mongoose.connect('mongodb://localhost:27017/astronomy');
-        console.log("MONGO CONNECTION OPEN!");  
+        const db = await mongoose.connect('mongodb://localhost:27017/astronomy');
+        console.log(`Mongo Connection Open in host ${db.connection.host}`);  
     }
     catch(err){
-        console.log("ERROR TRYING TO CONNECT to MONGODB :(");
-        console.log(err);
+        console.error("ERROR TRYING TO CONNECT to MONGODB :(");
+        console.error(err);
     }
 }
 

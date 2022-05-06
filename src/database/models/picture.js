@@ -23,7 +23,10 @@ const pictureSchema = new mongoose.Schema({
         lowercase : true
 
     }
-});
+},{
+    timestamps : true
+}
+);
 
 // Compile the model
 const Picture = mongoose.model('Picture', pictureSchema);
