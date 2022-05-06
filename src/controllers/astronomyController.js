@@ -51,7 +51,6 @@ const createNewPicture = async (req, res) => {
           res.status(201).send({ status: "OK", picture: createdPicture });
       }
       catch(e){
-          console.log("Error controller");
           res
           .status(e?.status || 500)
           .send({ status: "FAILED", data: { error: e?.message || e } });

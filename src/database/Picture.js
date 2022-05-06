@@ -66,8 +66,7 @@ const createNewPicture = async (newPicture) => {
             status: 400,
             message: `Picture with the title '${newPicture.title}' already exists`
           };
-        
-    }
+        }
     
     try{
         const newPictureToInsert = new Picture(newPicture);
@@ -83,25 +82,46 @@ const createNewPicture = async (newPicture) => {
 
 // Read
 const getAllPictures = async () => {
-    const pictures = await Picture.find({});
-    console.log("Current Length Collection: ", pictures.length);
-    return pictures;
+    try{
+        const pictures = await Picture.find({});
+        console.log("Current Length Collection: ", pictures.length);
+        return pictures;
+    }
+    catch(e){
+        throw { status: 500, message: e };
+    }
 };
 
 const getOnePicture = async (id) => {
-    const picture = await Picture.findById(id);
-    return picture;
+    try{
+        const picture = await Picture.findById(id);
+        return picture;
+    }
+    catch(e){
+        throw { status: e?.status || 500, message: e?.message || e };
+    }
 };
 
 // Update
 const updateOnePicture = async (id, body) => {
-    const pictureUpdated = await Picture.findByIdAndUpdate( id , body, {runValidators : true, new : true});
-    return pictureUpdated;
+    try{
+        const pictureUpdated = await Picture.findByIdAndUpdate( id , body, {runValidators : true, new : true});
+        return pictureUpdated;
+    }
+    catch(e){
+        throw { status: e?.status || 500, message: e?.message || e };
+    }
 };
 
 // Delete
 const deleteOnePicture = async (id) => {
-    await Picture.findByIdAndDelete(id);
+    try{
+        await Picture.findByIdAndDelete(id);
+    }
+    catch(e){
+        throw { status: e?.status || 500, message: e?.message || e };
+    }
+    
 };
 
 // Exporting methods for certain database operations
