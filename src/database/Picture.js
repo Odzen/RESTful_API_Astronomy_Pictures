@@ -43,10 +43,8 @@ const getSaveAllInitialPictures = async () => {
 };
 getSaveAllInitialPictures();
 
-
-
-
 // CRUD
+
 // Working with database to make the database consistent -- 
 // Create
 let isInDB = false;
@@ -76,7 +74,7 @@ const createNewPicture = async (newPicture) => {
         const newPictureToInsert = new Picture(newPicture);
         await newPictureToInsert.save();
         console.log("Saved New Picture");
-        return newPicture;
+        return newPictureToInsert;
     }
     catch(e){
         console.log("Error trying to create new Picture", e);
@@ -97,7 +95,14 @@ const getOnePicture = async (id) => {
     return picture;
 };
 
+// Update
+const updateOnePicture = async (id, body) => {
+    //console.log(id, body);
+    const pictureUpdated = await Picture.findByIdAndUpdate( id , body, {runValidators : true, new : true});
+    console.log(pictureUpdated);
+    return pictureUpdated;
 
+};
 
 
 // Exporting methods for certain database operations
@@ -105,5 +110,6 @@ const getOnePicture = async (id) => {
 module.exports = { 
     getAllPictures,
     createNewPicture,
-    getOnePicture
+    getOnePicture,
+    updateOnePicture,
  };

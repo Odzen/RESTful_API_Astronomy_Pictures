@@ -42,9 +42,14 @@ const createNewPicture = async (req, res) => {
       res.status(201).send({ status: "OK", picture: createdPicture });
 };
 
-const updateOnePicture = (req, res) => {
-    const updatedPicture = astronomyService.updateOnePicture();
-    res.send('Update an existing Picture');
+const updateOnePicture = async (req, res) => {
+    const id = req.params.pictureId;
+    const {body} = req;
+    if(!id){
+        return;
+    }
+    const updatedPicture = await astronomyService.updateOnePicture(id, body);
+    res.send({ status: "OK", picture: updatedPicture });
 };
 
 const deleteOnePicture = (req, res) => {

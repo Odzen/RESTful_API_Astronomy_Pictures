@@ -15,7 +15,6 @@ const getAllPictures = async () => {
 };
 
 const getOnePicture = async (id) => {
-    //console.log("ServiceID:", id);
     try{
         const picture = await PictureDB.getOnePicture(id);
         return picture;
@@ -35,8 +34,14 @@ const createNewPicture = async (newPicture) => {
     };
 };
 
-const updateOnePicture = () => {
-    return;
+const updateOnePicture = async (id, body) => {
+    try{
+        const pictureUpdated = await PictureDB.updateOnePicture(id, body);
+        return pictureUpdated;
+    }
+    catch(e){
+        console.log("ERROR Updating Picture", e);
+    }
 };
 
 const deleteOnePicture = () => {
