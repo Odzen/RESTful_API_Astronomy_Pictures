@@ -1,0 +1,26 @@
+{
+  "name": "restful_api_astronomy_pictures",
+  "version": "1.0.0",
+  "description": "RESTful API for the input of Astronomy pictures",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Odzen/RESTful_API_Astronomy_Pictures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Odzen/RESTful_API_Astronomy_Pictures/issues"
+  },
+  "homepage": "https://github.com/Odzen/RESTful_API_Astronomy_Pictures#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
