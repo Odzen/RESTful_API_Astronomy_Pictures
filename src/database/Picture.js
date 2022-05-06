@@ -62,22 +62,20 @@ const createNewPicture = async (newPicture) => {
     isAlreadyAdded();
 
     if(isInDB){
-        console.log("Is in DB");
-        return;
-    }else{
-        console.log("Is not in DB");
+        throw {
+            status: 400,
+            message: `Picture with the title '${newPicture.title}' already exists`
+          };
+        
     }
-    
-    
     
     try{
         const newPictureToInsert = new Picture(newPicture);
         await newPictureToInsert.save();
-        console.log("Saved New Picture");
         return newPictureToInsert;
     }
     catch(e){
-        console.log("Error trying to create new Picture", e);
+        throw { status: 500, message: e?.message || e };
     }
     
 };

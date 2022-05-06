@@ -30,7 +30,7 @@ const createNewPicture = async (newPicture) => {
         return createdPicture;
     }
     catch(e){
-        console.log("ERROR Creating Picture", e);
+        throw e;
     };
 };
 
@@ -40,14 +40,13 @@ const updateOnePicture = async (id, body) => {
         return pictureUpdated;
     }
     catch(e){
-        console.log("ERROR Updating Picture", e);
+        throw e;
     }
 };
 
 const deleteOnePicture = async (id) => {
     try{
-        const pictureDeleted = await PictureDB.deleteOnePicture(id);
-        return pictureDeleted;
+        await PictureDB.deleteOnePicture(id);
     }
     catch(e){
         console.log("ERROR Deleting Picture", e);

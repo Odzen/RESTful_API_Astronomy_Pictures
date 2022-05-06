@@ -34,12 +34,29 @@ const createNewPicture = async (req, res) => {
         !body.title ||
         !body.url) 
       {
+        res
+        .status(400)
+        .send({
+          status: "FAILED",
+          data: {
+            error:
+              "One of the following keys is missing or is empty in request body: 'explanation', 'hdurl', 'title', 'url'",
+          },
+        });
         return;
       }
       
-      const createdPicture = await astronomyService.createNewPicture(body);
-      
-      res.status(201).send({ status: "OK", picture: createdPicture });
+      try{
+          const createdPicture = await astronomyService.createNewPicture(body);
+          res.status(201).send({ status: "OK", picture: createdPicture });
+      }
+      catch(e){
+          console.log("Error controller");
+          res
+          .status(e?.status || 500)
+          .send({ status: "FAILED", data: { error: e?.message || e } });
+      }
+
 };
 
 const updateOnePicture = async (req, res) => {
