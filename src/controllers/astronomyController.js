@@ -1,4 +1,4 @@
-// All related to HTTP, dealing with requests 
+// Controller Layer- All related to HTTP, dealing with requests 
 // and responses for endpoints. It talks with the service layer, get information
 // and send it over to the routes
 

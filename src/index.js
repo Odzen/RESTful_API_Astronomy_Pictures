@@ -1,15 +1,16 @@
+// Index.js
 
-const express = require("express");
+const express = require('express');
 
 const app = express();
 
 // Routes for version 1
-const v1PictureRouter = require("./v1/routes/astronomyRoutes");
+const v1PictureRouter = require('./v1/routes/astronomyRoutes');
 
 const PORT = process.env.PORT || 3000; 
 
 
-app.use("/api/v1/pictures", v1PictureRouter);
+app.use('/api/v1/pictures', v1PictureRouter);
 
 
 

@@ -1,4 +1,4 @@
-// Service methods to hand logic 
+// Service Layer -  methods to hand logic 
 // transforming data structures and communicating with Database
 
 const getAllPictures = () => {
