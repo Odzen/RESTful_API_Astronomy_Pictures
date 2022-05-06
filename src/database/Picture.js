@@ -82,12 +82,32 @@ const createNewPicture = async (newPicture) => {
 
 // Read
 const getAllPictures = async (filterParams) => {
+    const maxElementsByPage = 10;
+
     try{
-        const {title} = filterParams;
+        const {title} = filterParams; // For querying by title
+        const {length} = filterParams; // For return n=length elements
+        const {page} = filterParams; // For pagination
+
+        // Filter by title
         if(title){
             const pictures = await Picture.find({title});
             return pictures;
         }
+
+        if(length){
+            const pictures = await Picture.find({}).limit(length);
+            return pictures;
+        }
+
+        // Pagination
+        /*
+        if(page){
+            const pictures = await Picture.find({}).limit(length);
+            return pictures;
+        }
+        */
+
         // Other if-statements will go here for different parameters
         
         // If it is not any filter

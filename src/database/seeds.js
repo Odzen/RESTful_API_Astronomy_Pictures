@@ -34,7 +34,6 @@ const extractNeededFields = async () => {
 const getAllPicturesNasa = async () =>{
     try{
         const data = await extractNeededFields();
-        //console.log(data);
         return data;
     }
     catch(e){
@@ -43,7 +42,7 @@ const getAllPicturesNasa = async () =>{
 }
 
 
-//console.log(getAllPicturesNasa());
+
 
 // Methods to importing data from API NASA
 // Export methods used by the Picture.js
