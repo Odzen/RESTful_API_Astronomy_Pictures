@@ -39,8 +39,8 @@ getSaveAllInitialPictures();
 
 // Working with database to make the database consistent
 const getAllPictures = async () => {
-    const Data =  await getAllInitialPictures();
-    return Data;
+    const pictures = await Picture.find({});
+    return pictures;
 };
 
 

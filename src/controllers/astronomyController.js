@@ -8,7 +8,7 @@ const astronomyService = require('../services/astronomyService');
 const getAllPictures = async (req, res) => {
     try{
         const allPictures = await astronomyService.getAllPictures();
-        console.log(allPictures.length);
+        //console.log(allPictures.length);
         res.send({ status: "OK", pictures: allPictures });
     }
     catch(e){
