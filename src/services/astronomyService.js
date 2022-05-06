@@ -1,27 +1,31 @@
-const getAllPicturess = () => {
+// Service methods to hand logic 
+// transforming data structures and communicating with Database
+
+const getAllPictures = () => {
     return;
-  };
-  
-  const getOnePictures = () => {
+};
+
+const getOnePicture = () => {
     return;
-  };
-  
-  const createNewPictures = () => {
+};
+
+const createNewPicture = () => {
     return;
-  };
-  
-  const updateOnePictures = () => {
+};
+
+const updateOnePicture = () => {
     return;
-  };
-  
-  const deleteOnePictures = () => {
+};
+
+const deleteOnePicture = () => {
     return;
-  };
-  
-  module.exports = {
-    getAllPicturess,
-    getOnePictures,
-    createNewPictures,
-    updateOnePictures,
-    deleteOnePictures,
-  };
+};
+
+// Export methods used by the controller
+module.exports = {
+    getAllPictures,
+    getOnePicture,
+    createNewPicture,
+    updateOnePicture,
+    deleteOnePicture
+};
