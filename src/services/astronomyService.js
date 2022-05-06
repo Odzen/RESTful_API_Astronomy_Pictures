@@ -1,8 +1,18 @@
 // Service Layer -  methods to hand logic 
 // transforming data structures and communicating with Database
 
-const getAllPictures = () => {
-    return;
+const PictureDB = require("../database/Picture");
+
+
+const getAllPictures = async () => {
+    try{
+        const allPictures = await PictureDB.getAllPictures();
+        //console.log(allPictures);
+        return allPictures;
+    }
+    catch(e){
+        console.log("ERROR getting Pictures", e);
+    }
 };
 
 const getOnePicture = () => {

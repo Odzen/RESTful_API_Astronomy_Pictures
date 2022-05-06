@@ -5,9 +5,16 @@
 const astronomyService = require('../services/astronomyService');
 
 
-const getAllPictures = (req, res) => {
-    const allPictures = astronomyService.getAllPictures();
-    res.send('Get all Pictures');
+const getAllPictures = async (req, res) => {
+    try{
+        const allPictures = await astronomyService.getAllPictures();
+        console.log(allPictures.length);
+        res.send({ status: "OK", pictures: allPictures });
+    }
+    catch(e){
+        console.log("ERROR getting Pictures", e);
+
+    }
 };
 
 const getOnePicture = (req, res) => {
