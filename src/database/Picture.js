@@ -3,11 +3,13 @@
 
 const DB = require("./seeds.js");
 
-const getAllPictures = () => {
-  return DB.Pictures;
+const getAllPictures = async () => {
+    const data = await DB.extractNeededFields();
+    console.log(data);
+    
 };
 
-
+getAllPictures();
 // Exporting methods for certain database operations
 // used by the Service Layer.
 module.exports = { getAllPictures };
