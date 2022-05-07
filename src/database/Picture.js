@@ -118,7 +118,8 @@ const getAllPictures = async (filterParams) => {
         }
 
         if(explanation){
-            const pictures = await Picture.paginate({explanation}, {limit,page});
+            let expRegex = new RegExp(explanation, 'i');
+            const pictures = await Picture.paginate({explanation: {$regex:expRegex}}, {limit,page});
             return pictures;
         }
 
