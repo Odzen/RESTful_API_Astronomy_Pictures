@@ -83,22 +83,6 @@ const createNewPicture = async (newPicture) => {
 
 // Read
 
-// Aux Function to look for matches of a regular expression inside a text
-function isInText(regexp, text){
-    if (regexp.test(text)) {
-      return true;
-    } else {
-      return false;
-    }
-}
-
-/*
-let world = 'world';
-let re = new RegExp(world, 'i');
-let re2 = /hello/i;
-let text = "HELLO WORLD";
-console.log(isInText(re, text));
- */ 
 
 const getAllPictures = async (filterParams) => {
 
