@@ -10,12 +10,12 @@ const Picture = require('./models/picture');
 
 async function main() {
     try{
-        await mongoose.connect('mongodb://localhost:27017/astronomy');
-        console.log("MONGO CONNECTION OPEN!");  
+        const db = await mongoose.connect('mongodb://localhost:27017/astronomy');
+        console.log(`Mongo Connection Open in host: ${db.connection.host}`);  
     }
     catch(err){
-        console.log("ERROR TRYING TO CONNECT to MONGODB :(");
-        console.log(err);
+        console.error("ERROR TRYING TO CONNECT to MONGODB :(");
+        console.error(err);
     }
 }
 
@@ -31,7 +31,7 @@ const getSaveAllInitialPictures = async () => {
     deleteAllPictures();
     const Data =  await DB.getAllPicturesNasa();
     let count = 0;
-    for (element of Data){
+    for (let element of Data){
         const {explanation, hdurl, title, url} =  element;
         if(explanation && hdurl && title && url){
             const newPicture = new Picture(element);
@@ -39,8 +39,9 @@ const getSaveAllInitialPictures = async () => {
             count += 1;
         }
     }
-    console.log(`Populate the DB with ${count} pictures from the NASA API`);
+    console.log(`Populated the database with ${count} pictures from the NASA API`);
 };
+
 getSaveAllInitialPictures();
 
 // CRUD
@@ -81,10 +82,60 @@ const createNewPicture = async (newPicture) => {
 
 
 // Read
-const getAllPictures = async () => {
+
+// Aux Function to look for matches of a regular expression inside a text
+function isInText(regexp, text){
+    if (regexp.test(text)) {
+      return true;
+    } else {
+      return false;
+    }
+}
+
+/*
+let world = 'world';
+let re = new RegExp(world, 'i');
+let re2 = /hello/i;
+let text = "HELLO WORLD";
+console.log(isInText(re, text));
+ */ 
+
+const getAllPictures = async (filterParams) => {
+
     try{
-        const pictures = await Picture.find({});
-        console.log("Current Length Collection: ", pictures.length);
+        const title = filterParams.title; // For querying by title
+        const limit = parseInt(filterParams.limit, 10) || 10; // For return n=length elements
+        const page = parseInt(filterParams.page, 10) || 1; // For pagination
+        const explanation = filterParams.explanation;
+        const hdurl = filterParams.hdurl;
+        const url = filterParams.url;
+        
+
+        if(title){
+            let titleRegex = new RegExp(title, 'i');
+            const pictures = await Picture.paginate({title: {$regex:titleRegex}}, {limit,page});
+            return pictures;
+        }
+
+        if(explanation){
+            let expRegex = new RegExp(explanation, 'i');
+            const pictures = await Picture.paginate({explanation: {$regex:expRegex}}, {limit,page});
+            return pictures;
+        }
+
+        if(hdurl){
+            const pictures = await Picture.paginate({hdurl}, {limit,page});
+            return pictures;
+        }
+
+        if(url){
+            const pictures = await Picture.paginate({url}, {limit,page});
+            return pictures;
+        }
+        // Other if-statements will go here for different parameters
+        
+        // If it is not any filter
+        const pictures = await Picture.paginate({}, {limit, page});
         return pictures;
     }
     catch(e){
@@ -104,6 +155,7 @@ const getOnePicture = async (id) => {
 
 // Update
 const updateOnePicture = async (id, body) => {
+
     try{
         const pictureUpdated = await Picture.findByIdAndUpdate( id , body, {runValidators : true, new : true});
         return pictureUpdated;
