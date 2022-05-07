@@ -3,11 +3,15 @@
 
 const DB = require('./seeds.js');
 const mongoose = require('mongoose');
+// To access to the ENV custom variables
+require('dotenv').config();
 
 // Connecting to mongoose
 // Import the model
 const Picture = require('./models/picture');
 
+// Localhost
+/*
 async function main() {
     try{
         const db = await mongoose.connect('mongodb://localhost:27017/astronomy');
@@ -15,6 +19,19 @@ async function main() {
     }
     catch(err){
         console.error("ERROR TRYING TO CONNECT to MONGODB :(");
+        console.error(err);
+    }
+}
+*/
+
+// Cloud MongoDB Atlas
+async function main() {
+    try{
+        const db = await mongoose.connect(process.env.MONGODB_URI);
+        console.log(`Mongo Connection Open in host: ${db.connection.host}`);  
+    }
+    catch(err){
+        console.error("ERROR TRYING TO CONNECT to MONGODB Atlas :(");
         console.error(err);
     }
 }
