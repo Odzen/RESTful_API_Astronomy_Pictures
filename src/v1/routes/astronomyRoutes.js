@@ -52,10 +52,43 @@ const pictureController = require('../../controllers/astronomyController');
  *          responses:
  *              200:
  *                  description: OK
- *              5XX:
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : object
+ *                              $ref : '#/components/schemas/Picture'
+ *              500:
  *                  description: FAILED
- *              4XX:
- *                  description : FAILED    
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Picture with the title __ already exists //// One of the following keys is missing or is empty in request body: 'explanation', 'hdurl', 'title', 'url'" 
  * 
  */
 router.post('/', pictureController.createNewPicture);
@@ -103,23 +136,7 @@ router.post('/', pictureController.createNewPicture);
  *                              type : array
  *                              items :
  *                                  $ref : '#/components/schemas/Picture'
- *              5XX:
- *                  description: FAILED
- *                  content :
- *                      application/json:
- *                          schema :
- *                              type : object
- *                              properties :
- *                                  status:
- *                                      type : string
- *                                      example : FAILED
- *                                  data :
- *                                      type : object
- *                                      properties :
- *                                          error :
- *                                              type : string
- *                                              example : "Some error message"
- *              4XX:
+ *              500:
  *                  description: FAILED
  *                  content :
  *                      application/json:
@@ -139,6 +156,61 @@ router.post('/', pictureController.createNewPicture);
  */
 router.get('/', pictureController.getAllPictures);
 
+/**
+ * @swagger
+ * /api/v1/pictures/{pictureId}:
+ *      get:
+ *          summary: Gets a picture in the Database based on id
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : path
+ *              name : pictureId
+ *              description : Id of picture that needs to be updated
+ *              schema :
+ *                  type : string
+ *              required : true
+ *          responses:
+ *              200:
+ *                  description: OK
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : object
+ *                              $ref : '#/components/schemas/Picture'
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Cast to ObjectId failed for value \"s\" (type string) at path \"_id\" for model \"Picture\ // OR //Parameter 'pictureId' cannot be empty" 
+ * 
+ */
 router.get('/:pictureId', pictureController.getOnePicture);
 
 router.patch('/:pictureId', pictureController.updateOnePicture);
