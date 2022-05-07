@@ -11,7 +11,7 @@ const Picture = require('./models/picture');
 async function main() {
     try{
         const db = await mongoose.connect('mongodb://localhost:27017/astronomy');
-        console.log(`Mongo Connection Open in host ${db.connection.host}`);  
+        console.log(`Mongo Connection Open in host: ${db.connection.host}`);  
     }
     catch(err){
         console.error("ERROR TRYING TO CONNECT to MONGODB :(");
@@ -39,7 +39,7 @@ const getSaveAllInitialPictures = async () => {
             count += 1;
         }
     }
-    console.log(`Populate the DB with ${count} pictures from the NASA API`);
+    console.log(`Populated the database with ${count} pictures from the NASA API`);
 };
 
 getSaveAllInitialPictures();
@@ -83,36 +83,20 @@ const createNewPicture = async (newPicture) => {
 
 // Read
 const getAllPictures = async (filterParams) => {
-    const maxElementsByPage = 10;
 
     try{
-        const {title} = filterParams; // For querying by title
-        const {length} = filterParams; // For return n=length elements
-        const {page} = filterParams; // For pagination
+        const title = filterParams.title; // For querying by title
+        const limit = parseInt(filterParams.limit, 10) || 10; // For return n=length elements
+        const page = parseInt(filterParams.page, 10) || 1; // For pagination
 
-        // Filter by title
         if(title){
-            const pictures = await Picture.paginate({title});
+            const pictures = await Picture.paginate({title}, {limit,page});
             return pictures;
         }
-
-        if(length){
-            const pictures = await Picture.paginate({}, {limit:length});
-            return pictures;
-        }
-
-        
-        
-        if(page){
-            const pictures = await Picture.paginate({}, {page:page});
-            return pictures;
-        }
-        
-
         // Other if-statements will go here for different parameters
         
         // If it is not any filter
-        const pictures = await Picture.paginate();
+        const pictures = await Picture.paginate({}, {limit, page});
         return pictures;
     }
     catch(e){

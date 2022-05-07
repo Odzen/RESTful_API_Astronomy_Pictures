@@ -17,5 +17,5 @@ app.use('/api/v1/pictures', v1PictureRouter);
 
 
 app.listen(PORT, () => { 
-    console.log(`API is listening on port ${PORT}`); 
+    console.log(`API is listening on port ${PORT} - Wait! Data is comming...`); 
 });
