@@ -40,7 +40,7 @@ const pictureController = require('../../controllers/astronomyController');
  * @swagger
  * /api/v1/pictures:
  *      post:
- *          summary: Create new Picture
+ *          summary: Creates new Picture
  *          tags : [Picture]
  *          requestBody :
  *              required : true
@@ -98,7 +98,7 @@ router.post('/', pictureController.createNewPicture);
  * @swagger
  * /api/v1/pictures:
  *      get:
- *          summary: Return all Pictures based in some queries, if the queries are empty it just returns all the users with pagination
+ *          summary: Returns all Pictures filtering based on some queries, if the queries are empty it just returns all the users with pagination
  *          tags : [Picture]
  *          parameters :
  *          -   in : query
@@ -160,7 +160,7 @@ router.get('/', pictureController.getAllPictures);
  * @swagger
  * /api/v1/pictures/{pictureId}:
  *      get:
- *          summary: Gets a picture in the Database based on id
+ *          summary: Gets a picture in the Database based on pictureId
  *          tags : [Picture]
  *          parameters :
  *          -   in : path
@@ -217,7 +217,7 @@ router.get('/:pictureId', pictureController.getOnePicture);
  * @swagger
  * /api/v1/pictures/{pictureId}:
  *      patch:
- *          summary: Updates a picture in the Database with the JSON input and based on the picture Id.
+ *          summary: Updates a picture in the Database with the JSON input and based on pictureId.
  *          tags : [Picture]
  *          parameters :
  *          -   in : path
@@ -281,7 +281,7 @@ router.patch('/:pictureId', pictureController.updateOnePicture);
  * @swagger
  * /api/v1/pictures/{pictureId}:
  *      delete:
- *          summary: Deletes a picture from the Database
+ *          summary: Deletes a picture from the Database based on pictureId
  *          tags : [Picture]
  *          parameters :
  *          -   in : path
