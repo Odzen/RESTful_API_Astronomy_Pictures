@@ -14,7 +14,7 @@ const Picture = require('./models/picture');
 /*
 async function main() {
     try{
-        const db = await mongoose.connect('mongodb://localhost:27017/astronomy');
+        const db = await mongoose.connect(process.env.DB_LOCAL_URL);
         console.log(`Mongo Connection Open in host: ${db.connection.host}`);  
     }
     catch(err){
@@ -28,7 +28,7 @@ async function main() {
 async function main() {
     try{
         const db = await mongoose.connect(process.env.MONGODB_URI);
-        console.log(`Mongo Connection Open in host: ${db.connection.host}`);  
+        console.log(`Mongo Connection Open in host: ${db.connection.host} - Wait a few seconds more please!! Data is Comming ...`);  
     }
     catch(err){
         console.error("ERROR TRYING TO CONNECT to MONGODB Atlas :(");
@@ -56,7 +56,7 @@ const getSaveAllInitialPictures = async () => {
             count += 1;
         }
     }
-    console.log(`Populated the database with ${count} pictures from the NASA API`);
+    console.log(`DATA IS HERE!! Populated the database with ${count} pictures from the NASA API`);
 };
 
 getSaveAllInitialPictures();
