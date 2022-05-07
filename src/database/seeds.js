@@ -5,11 +5,11 @@ const axios = require('axios').default;
 // Is the maximum value that acepts the query count in the NASA API
 const qtyValuesToExtract = 100;
 const DataFormat = [];
-const API_Key = 'A27LKizgGfaJWALLDxfKO8cxeZYxa0NCotVHHu2z';
+//const API_Key = process.env.DEV_KEY_API_NASA;
 
 const getPicturesFromAPI = async (count) => {
     try{
-        const {data} = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${API_Key}&count=${count}`);
+        const {data} = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.DEV_KEY_API_NASA}&count=${count}`);
         return data;
     }
     catch(e){
