@@ -14,7 +14,7 @@ const Picture = require('./models/picture');
 /*
 async function main() {
     try{
-        const db = await mongoose.connect('mongodb://localhost:27017/astronomy');
+        const db = await mongoose.connect(process.env.DB_LOCAL_URL);
         console.log(`Mongo Connection Open in host: ${db.connection.host}`);  
     }
     catch(err){

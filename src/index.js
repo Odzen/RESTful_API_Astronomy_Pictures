@@ -19,7 +19,8 @@ const swaggerSpec = {
       },
       servers: [
           {
-              url:"http://localhost:3000"
+              url:"http://localhost:3000",
+              url: "https://astronomy-restful-api.herokuapp.com/"
           },
       ],
       apis: [`${path.join(__dirname, "./v1/routes/*")}`]
@@ -27,6 +28,8 @@ const swaggerSpec = {
  
 //settings
 const app = express();
+
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000; 
 
 // Middlewares
@@ -35,6 +38,6 @@ app.use('/api/v1/pictures', v1PictureRouter); // routes
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerSpec)));
 
 
-app.listen(PORT, () => { 
+app.listen(PORT,HOST, () => { 
     console.log(`API is listening on port ${PORT} - Wait! Data is comming...`);
 });
