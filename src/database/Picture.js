@@ -82,15 +82,53 @@ const createNewPicture = async (newPicture) => {
 
 
 // Read
+
+// Aux Function to look for matches of a regular expression inside a text
+function isInText(regexp, text){
+    if (regexp.test(text)) {
+      return true;
+    } else {
+      return false;
+    }
+}
+
+/*
+let world = 'world';
+let re = new RegExp(world, 'i');
+let re2 = /hello/i;
+let text = "HELLO WORLD";
+console.log(isInText(re, text));
+ */ 
+
 const getAllPictures = async (filterParams) => {
 
     try{
         const title = filterParams.title; // For querying by title
         const limit = parseInt(filterParams.limit, 10) || 10; // For return n=length elements
         const page = parseInt(filterParams.page, 10) || 1; // For pagination
+        const explanation = filterParams.explanation;
+        const hdurl = filterParams.hdurl;
+        const url = filterParams.url;
+        
 
         if(title){
-            const pictures = await Picture.paginate({title}, {limit,page});
+            let titleRegex = new RegExp(title, 'i');
+            const pictures = await Picture.paginate({title: {$regex:titleRegex}}, {limit,page});
+            return pictures;
+        }
+
+        if(explanation){
+            const pictures = await Picture.paginate({explanation}, {limit,page});
+            return pictures;
+        }
+
+        if(hdurl){
+            const pictures = await Picture.paginate({hdurl}, {limit,page});
+            return pictures;
+        }
+
+        if(url){
+            const pictures = await Picture.paginate({url}, {limit,page});
             return pictures;
         }
         // Other if-statements will go here for different parameters

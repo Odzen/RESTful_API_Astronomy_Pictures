@@ -3,7 +3,7 @@
 
 const axios = require('axios').default;
 // Is the maximum value that acepts the query count in the NASA API
-const qtyValuesToExtract = 100;
+const qtyValuesToExtract = 5;
 const DataFormat = [];
 const API_Key = 'A27LKizgGfaJWALLDxfKO8cxeZYxa0NCotVHHu2z';
 
