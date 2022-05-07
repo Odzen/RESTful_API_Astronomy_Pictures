@@ -31,7 +31,7 @@ const getSaveAllInitialPictures = async () => {
     deleteAllPictures();
     const Data =  await DB.getAllPicturesNasa();
     let count = 0;
-    for (element of Data){
+    for (let element of Data){
         const {explanation, hdurl, title, url} =  element;
         if(explanation && hdurl && title && url){
             const newPicture = new Picture(element);
@@ -41,6 +41,7 @@ const getSaveAllInitialPictures = async () => {
     }
     console.log(`Populate the DB with ${count} pictures from the NASA API`);
 };
+
 getSaveAllInitialPictures();
 
 // CRUD
@@ -91,28 +92,27 @@ const getAllPictures = async (filterParams) => {
 
         // Filter by title
         if(title){
-            const pictures = await Picture.find({title});
+            const pictures = await Picture.paginate({title});
             return pictures;
         }
 
         if(length){
-            const pictures = await Picture.find({}).limit(length);
+            const pictures = await Picture.paginate({}, {limit:length});
             return pictures;
         }
 
-        // Pagination
-        /*
+        
+        
         if(page){
-            const pictures = await Picture.find({}).limit(length);
+            const pictures = await Picture.paginate({}, {page:page});
             return pictures;
         }
-        */
+        
 
         // Other if-statements will go here for different parameters
         
         // If it is not any filter
-        const pictures = await Picture.find({});
-        console.log("Current Length Collection: ", pictures.length);
+        const pictures = await Picture.paginate();
         return pictures;
     }
     catch(e){

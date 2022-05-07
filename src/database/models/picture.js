@@ -2,6 +2,10 @@
 
 const mongoose = require('mongoose');
 
+// Plugging for pagination
+const mongoosePaginate = require('mongoose-paginate-v2');
+
+
 const pictureSchema = new mongoose.Schema({
     explanation: {
         type : String,
@@ -23,10 +27,13 @@ const pictureSchema = new mongoose.Schema({
         lowercase : true
 
     }
-},{
+},
+    {
     timestamps : true
-}
+    }
 );
+
+pictureSchema.plugin(mongoosePaginate);
 
 // Compile the model
 const Picture = mongoose.model('Picture', pictureSchema);
