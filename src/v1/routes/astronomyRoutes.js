@@ -6,6 +6,7 @@
  *   get:
  *     tags:
  *       - Pictures
+ *     summary : Gets all pictures from the database based in some queries
  *     parameters:
  *       - in: query
  *         name: title
@@ -69,9 +70,11 @@
  *   post:
  *     tags:
  *       - Pictures
+ *     summary : Post-Create a new picture with some data in JSON
  *     parameters:
  *       - in: body
  *         name: Picture
+ *         operationId: createNewPicture
  *         schema:
  *           type: object
  *           required:
@@ -128,13 +131,14 @@
  *   get:
  *     tags:
  *       - Pictures
+ *     summary : Gets a picture in the Database based on id
+ *     operationId : updateOnePicture
  *     parameters:
  *       - in: path
  *         name: pictureId
- *         operationId: getOnePicture
+ *         description: ID of picture that needs to be updated
  *         schema:
  *           type: string
- *         description: Returns one picture based on id
  *     responses:
  *       200:
  *         description: OK
@@ -168,17 +172,35 @@
  *                 items:
  *                   $ref: '#/components/schemas/Picture'
  * 
- * 
  *   patch:
  *     tags:
  *       - Pictures
+ *     summary : Updates a picture in the Database with the JSON input
+ *     operationId : updateOnePicture
  *     parameters:
- *       - in: path
- *         name: pictureId
- *         operationId: updateOnePicture
- *         schema:
- *           type: string
- *         description: Updates one picture based on id
+ *       in : path
+ *       name : pictureId 
+ *       description : ID of picture that needs to be updated 
+ *       required : true
+ *       schema:
+ *         type : string
+ *       requestBody:
+ *         content:
+ *           'application/json':
+ *             schema:
+ *               properties:
+ *                 explanation:
+ *                   type: string
+ *                   description : Updated explanation of the picture
+ *                 hdurl:
+ *                   type: string
+ *                   description : Updated hdurl of the picture
+ *                 title:
+ *                   type: string
+ *                   description : Updated title of the picture
+ *                 url:
+ *                   type: string
+ *                   description : Updated url of the picture
  *     responses:
  *       200:
  *         description: OK
@@ -214,6 +236,7 @@
  *   delete:
  *     tags:
  *       - Pictures
+ *     summary : Deletes a picture from the Database
  *     parameters:
  *       - in: path
  *         name: pictureId
