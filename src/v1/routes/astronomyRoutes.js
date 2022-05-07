@@ -165,7 +165,7 @@ router.get('/', pictureController.getAllPictures);
  *          parameters :
  *          -   in : path
  *              name : pictureId
- *              description : Id of picture that needs to be updated
+ *              description : Id of picture that needs to be found
  *              schema :
  *                  type : string
  *              required : true
@@ -213,6 +213,68 @@ router.get('/', pictureController.getAllPictures);
  */
 router.get('/:pictureId', pictureController.getOnePicture);
 
+/**
+ * @swagger
+ * /api/v1/pictures/{pictureId}:
+ *      patch:
+ *          summary: Updates a picture in the Database with the JSON input and based on the picture Id.
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : path
+ *              name : pictureId
+ *              description : Id of picture that needs to be updated
+ *              schema :
+ *                  type : string
+ *              required : true
+ *          requestBody :
+ *              required : true
+ *              content :
+ *                  application/json:
+ *                      schema :
+ *                          type : object
+ *                          $ref : '#/components/schemas/Picture'
+ *          responses:
+ *              200:
+ *                  description: OK
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : object
+ *                              $ref : '#/components/schemas/Picture'
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Parameters 'pictureId' or 'body' cannot be empty" 
+ * 
+ */
 router.patch('/:pictureId', pictureController.updateOnePicture);
 
 router.delete('/:pictureId', pictureController.deleteOnePicture);

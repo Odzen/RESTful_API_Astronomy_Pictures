@@ -41,36 +41,7 @@ const getOnePicture = async (req, res) => {
 };
 
 
-/**
- * @swagger
- * components:
- *      schemas:
- *          Picture:
- *              type: object
- *              properties:
- *                  explanation:
- *                      type: string
- *                      description : picture explanation
- *                      example: Would you like to see a total eclipse of the Sun?  If so, do any friends or relatives live near the path of next summer's eclipse?  If yes again, then...
- *                  hdurl:
- *                      type: string
- *                      description : picture high definition url
- *                      example: https://apod.nasa.gov/apod/image/1608/tse2017usa_espenak_1421.jpg
- *                  title:
- *                      type: string
- *                      description : picture title
- *                      example: Map of Total Solar Eclipse Path in 2017 August
- *                  url:
- *                      type: string
- *                      description : picture url
- *                      example: https://apod.nasa.gov/apod/image/1608/tse2017usa_espenak_1080.jpg
- *              required :
- *              -  explanation
- *              -  hdurl
- *              -  title
- *              -  url
- *                  
- */
+
 const createNewPicture = async (req, res) => {
     const {body} = req;
     if (!body.explanation ||
@@ -109,7 +80,7 @@ const updateOnePicture = async (req, res) => {
     if(!id || (!body.explanation &&
                 !body.hdurl &&
                 !body.title &&
-                !body.url))
+                !body.url) )
     {
         res
         .status(400)
