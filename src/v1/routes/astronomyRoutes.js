@@ -50,7 +50,7 @@ const pictureController = require('../../controllers/astronomyController');
  *                          type : object
  *                          $ref : '#/components/schemas/Picture'
  *          responses:
- *              200:
+ *              201:
  *                  description: OK
  *                  content :
  *                      application/json:
@@ -277,6 +277,57 @@ router.get('/:pictureId', pictureController.getOnePicture);
  */
 router.patch('/:pictureId', pictureController.updateOnePicture);
 
+/**
+ * @swagger
+ * /api/v1/pictures/{pictureId}:
+ *      delete:
+ *          summary: Deletes a picture from the Database
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : path
+ *              name : pictureId
+ *              description : Id of picture that needs to be deleted
+ *              schema :
+ *                  type : string
+ *              required : true
+ *          responses:
+ *              204:
+ *                  description: OK
+ *                                              
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Parameter 'pictureId' cannot be empty" 
+ * 
+ */
 router.delete('/:pictureId', pictureController.deleteOnePicture);
 
 module.exports = router;
