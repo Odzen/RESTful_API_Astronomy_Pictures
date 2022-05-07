@@ -40,6 +40,8 @@ const getOnePicture = async (req, res) => {
     }
 };
 
+
+
 const createNewPicture = async (req, res) => {
     const {body} = req;
     if (!body.explanation ||
@@ -78,7 +80,7 @@ const updateOnePicture = async (req, res) => {
     if(!id || (!body.explanation &&
                 !body.hdurl &&
                 !body.title &&
-                !body.url))
+                !body.url) )
     {
         res
         .status(400)

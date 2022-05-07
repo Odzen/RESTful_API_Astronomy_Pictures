@@ -1,297 +1,333 @@
 // Route Layer - V1
 
-/**
- * @openapi
- * /api/v1/pictures:
- *   get:
- *     tags:
- *       - Pictures
- *     summary : Gets all pictures from the database based in some queries
- *     parameters:
- *       - in: query
- *         name: title
- *         schema:
- *           type: string
- *         description: Returns a list of matches where the query appears in the picture's titles from the database
- *       - in: query
- *         name: limit
- *         schema:
- *           type: number
- *         description: The limit of responses
- *       - in: query
- *         name: explanation
- *         schema:
- *           type: string
- *         description: Returns a list of matches where the query appears in the picture's explanations from the database
- *       - in: query
- *         name: url
- *         schema:
- *           type: string
- *         description: The url of a picture
- *       - in: query
- *         name: hurl
- *         schema:
- *           type: string
- *         description: The url of a picture in high definition
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: object
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- *                   
- *       5XX:
- *         description: FAILED
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status: 
- *                   type: string
- *                   example: FAILED
- *                 data:
- *                   type: object
- *                   properties:
- *                     error:
- *                       type: string 
- *                       example: "Some error message"
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- *   post:
- *     tags:
- *       - Pictures
- *     summary : Post-Create a new picture with some data in JSON
- *     parameters:
- *       - in: body
- *         name: Picture
- *         operationId: createNewPicture
- *         schema:
- *           type: object
- *           required:
- *             - explanation
- *             - hdurl
- *             - title
- *             - url
- *           properties:
- *             explanation:
- *               type: string
- *             hdurl:
- *               type: string
- *             title:
- *               type: string
- *             url:
- *               type: string  
- *         description: Create new Picture
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: object
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- *                   
- *       5XX:
- *         description: FAILED
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status: 
- *                   type: string
- *                   example: FAILED
- *                 data:
- *                   type: object
- *                   properties:
- *                     error:
- *                       type: string 
- *                       example: "Some error message"
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- * 
- * /api/v1/pictures/{pictureId}:
- *   get:
- *     tags:
- *       - Pictures
- *     summary : Gets a picture in the Database based on id
- *     operationId : updateOnePicture
- *     parameters:
- *       - in: path
- *         name: pictureId
- *         description: ID of picture that needs to be updated
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: object
- *                   
- *       5XX:
- *         description: FAILED
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status: 
- *                   type: string
- *                   example: FAILED
- *                 data:
- *                   type: object
- *                   properties:
- *                     error:
- *                       type: string 
- *                       example: "Some error message"
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- * 
- *   patch:
- *     tags:
- *       - Pictures
- *     summary : Updates a picture in the Database with the JSON input
- *     operationId : updateOnePicture
- *     parameters:
- *       in : path
- *       name : pictureId 
- *       description : ID of picture that needs to be updated 
- *       required : true
- *       schema:
- *         type : string
- *       requestBody:
- *         content:
- *           'application/json':
- *             schema:
- *               properties:
- *                 explanation:
- *                   type: string
- *                   description : Updated explanation of the picture
- *                 hdurl:
- *                   type: string
- *                   description : Updated hdurl of the picture
- *                 title:
- *                   type: string
- *                   description : Updated title of the picture
- *                 url:
- *                   type: string
- *                   description : Updated url of the picture
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: object
- *                   
- *       5XX:
- *         description: FAILED
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status: 
- *                   type: string
- *                   example: FAILED
- *                 data:
- *                   type: object
- *                   properties:
- *                     error:
- *                       type: string 
- *                       example: "Some error message"
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- *   delete:
- *     tags:
- *       - Pictures
- *     summary : Deletes a picture from the Database
- *     parameters:
- *       - in: path
- *         name: pictureId
- *         operationId: deleteOnePicture
- *         schema:
- *           type: string
- *         description: Deletes one picture based on id
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: object
- *                   
- *       5XX:
- *         description: FAILED
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status: 
- *                   type: string
- *                   example: FAILED
- *                 data:
- *                   type: object
- *                   properties:
- *                     error:
- *                       type: string 
- *                       example: "Some error message"
- *                 items:
- *                   $ref: '#/components/schemas/Picture'
- * 
- */
 
 const express = require('express');
 const router = express.Router();
 const pictureController = require('../../controllers/astronomyController');
 
+/**
+ * @swagger
+ * components:
+ *      schemas:
+ *          Picture:
+ *              type: object
+ *              properties:
+ *                  explanation:
+ *                      type: string
+ *                      description : picture explanation
+ *                      example: Would you like to see a total eclipse of the Sun?  If so, do any friends or relatives live near the path of next summer's eclipse?  If yes again, then...
+ *                  hdurl:
+ *                      type: string
+ *                      description : picture high definition url
+ *                      example: https://apod.nasa.gov/apod/image/1608/tse2017usa_espenak_1421.jpg
+ *                  title:
+ *                      type: string
+ *                      description : picture title
+ *                      example: Map of Total Solar Eclipse Path in 2017 August
+ *                  url:
+ *                      type: string
+ *                      description : picture url
+ *                      example: https://apod.nasa.gov/apod/image/1608/tse2017usa_espenak_1080.jpg
+ *              required :
+ *              -  explanation
+ *              -  hdurl
+ *              -  title
+ *              -  url
+ *                  
+ */
 
-router.get('/', pictureController.getAllPictures);
-
-router.get('/:pictureId', pictureController.getOnePicture);
-
+/**
+ * @swagger
+ * /api/v1/pictures:
+ *      post:
+ *          summary: Creates new Picture
+ *          tags : [Picture]
+ *          requestBody :
+ *              required : true
+ *              content :
+ *                  application/json:
+ *                      schema :
+ *                          type : object
+ *                          $ref : '#/components/schemas/Picture'
+ *          responses:
+ *              201:
+ *                  description: OK
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : object
+ *                              $ref : '#/components/schemas/Picture'
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Picture with the title __ already exists //// One of the following keys is missing or is empty in request body: 'explanation', 'hdurl', 'title', 'url'" 
+ * 
+ */
 router.post('/', pictureController.createNewPicture);
 
+
+/**
+ * @swagger
+ * /api/v1/pictures:
+ *      get:
+ *          summary: Returns all Pictures filtering based on some queries, if the queries are empty it just returns all the users with pagination
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : query
+ *              name : title
+ *              schema :
+ *                  type : string
+ *              description: Returns a list of Pictures where the title appears in any of the picture's titles from the database, using regular expressions.
+ *          -   in : query
+ *              name : limit
+ *              schema :
+ *                  type : number
+ *              description: Returns a list of Pictures with a length = limit
+ *          -   in : query
+ *              name : explanation
+ *              schema :
+ *                  type : string
+ *              description: Returns a list of Pictures where the query appears in any of the picture's explanation from the database, using regular expressions.
+ *          -   in : query
+ *              name : url
+ *              schema :
+ *                  type : string
+ *              description: Returns a list of Pictures where the query appears in any of the picture's url from the database, using regular expressions.
+ *          -   in : query
+ *              name : hdurl
+ *              schema :
+ *                  type : string
+ *              description: Returns a list of Pictures where the query appears in any of the picture's hdurl from the database, using regular expressions.
+ *              
+ *          responses:
+ *              200:
+ *                  description: OK
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : array
+ *                              items :
+ *                                  $ref : '#/components/schemas/Picture'
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ * 
+ */
+router.get('/', pictureController.getAllPictures);
+
+/**
+ * @swagger
+ * /api/v1/pictures/{pictureId}:
+ *      get:
+ *          summary: Gets a picture in the Database based on pictureId
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : path
+ *              name : pictureId
+ *              description : Id of picture that needs to be found
+ *              schema :
+ *                  type : string
+ *              required : true
+ *          responses:
+ *              200:
+ *                  description: OK
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : object
+ *                              $ref : '#/components/schemas/Picture'
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Cast to ObjectId failed for value \"s\" (type string) at path \"_id\" for model \"Picture\ // OR //Parameter 'pictureId' cannot be empty" 
+ * 
+ */
+router.get('/:pictureId', pictureController.getOnePicture);
+
+/**
+ * @swagger
+ * /api/v1/pictures/{pictureId}:
+ *      patch:
+ *          summary: Updates a picture in the Database with the JSON input and based on pictureId.
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : path
+ *              name : pictureId
+ *              description : Id of picture that needs to be updated
+ *              schema :
+ *                  type : string
+ *              required : true
+ *          requestBody :
+ *              required : true
+ *              content :
+ *                  application/json:
+ *                      schema :
+ *                          type : object
+ *                          $ref : '#/components/schemas/Picture'
+ *          responses:
+ *              200:
+ *                  description: OK
+ *                  content :
+ *                      application/json:
+ *                          schema:
+ *                              type : object
+ *                              $ref : '#/components/schemas/Picture'
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Parameters 'pictureId' or 'body' cannot be empty" 
+ * 
+ */
 router.patch('/:pictureId', pictureController.updateOnePicture);
 
+/**
+ * @swagger
+ * /api/v1/pictures/{pictureId}:
+ *      delete:
+ *          summary: Deletes a picture from the Database based on pictureId
+ *          tags : [Picture]
+ *          parameters :
+ *          -   in : path
+ *              name : pictureId
+ *              description : Id of picture that needs to be deleted
+ *              schema :
+ *                  type : string
+ *              required : true
+ *          responses:
+ *              204:
+ *                  description: OK
+ *                                              
+ *              500:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Some error message"
+ *              400:
+ *                  description: FAILED
+ *                  content :
+ *                      application/json:
+ *                          schema :
+ *                              type : object
+ *                              properties :
+ *                                  status:
+ *                                      type : string
+ *                                      example : FAILED
+ *                                  data :
+ *                                      type : object
+ *                                      properties :
+ *                                          error :
+ *                                              type : string
+ *                                              example : "Parameter 'pictureId' cannot be empty" 
+ * 
+ */
 router.delete('/:pictureId', pictureController.deleteOnePicture);
 
 module.exports = router;
