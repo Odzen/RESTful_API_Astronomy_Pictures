@@ -2,10 +2,11 @@
 // Nasa APOD Database and send it over to the Database Layer
 
 const axios = require('axios').default;
+// To access to the ENV custom variables
+require('dotenv').config();
 // Is the maximum value that acepts the query count in the NASA API
 const qtyValuesToExtract = 100;
 const DataFormat = [];
-//const API_Key = process.env.DEV_KEY_API_NASA;
 
 const getPicturesFromAPI = async (count) => {
     try{
