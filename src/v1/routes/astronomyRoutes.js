@@ -130,7 +130,7 @@ router.post('/', pictureController.createNewPicture);
  *              name : page
  *              schema :
  *                  type : string
- *              description: Returns a list of Pictures bade on the page
+ *              description: Returns a list of Pictures based on the page
  *              
  *          responses:
  *              200:

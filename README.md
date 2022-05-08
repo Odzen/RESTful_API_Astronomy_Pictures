@@ -25,6 +25,14 @@ To start listening for requests and fill up the database with some data from the
 - PATCH /api/v1/pictures/{pictureId}
 - Delete /api/v1/pictures/{pictureId}
 
+### Valid queries for the endpoint /api/v1/pictures
+- title : Returns a list of Pictures where the title appears in any of the picture's titles from the database, using regular expressions.
+- limit : Returns a list of Pictures with a length = limit
+- explanation : Returns a list of Pictures where the query appears in any of the picture's explanation from the database, using regular expressions.
+- url : Returns a list of Pictures based on the picture's url from the database.
+- hdurl : Returns a list of Pictures based on the picture's hdurl from the database.
+- page : Returns a list of Pictures based on the page
+
 Look to the Documentation for more information
 
 ### Documentation
