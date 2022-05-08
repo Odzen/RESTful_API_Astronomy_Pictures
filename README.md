@@ -18,6 +18,13 @@ Or one by one, searching for them in the file `package.json`.
 ### 2. Start the app
 To start the listening for requests and fill up with the local database with some data from the NASA APOD database, use `nodemon src/index.js` if or `npm run dev`, if nodemon was installed, as it is a devDependency, with nodemon the application restarts automatically. If not, use `node src/index.js` but the application has to be restarted manually.
 
+### Valid endpoints to execute CRUD operations
+- POST /api/v1/pictures
+- GET  /api/v1/pictures
+- GET  /api/v1/pictures/{pictureId}
+- PATCH /api/v1/pictures/{pictureId}
+- Delete /api/v1/pictures/{pictureId}
+
 ### Documentation
 The documentation for this API was made using the npm packages `swagger-ui-express` and `swagger-jsdoc`.
 
