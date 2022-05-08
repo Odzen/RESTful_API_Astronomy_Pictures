@@ -16,7 +16,7 @@ Use the npm package manager to run all the dependencies and devDependencies for 
 Or one by one, searching for them in the file `package.json`.
 
 ### 2. Start the app
-To start the listening for requests and fill up with the local database with some data from the NASA APOD database, use `nodemon src/index.js` if or `npm run dev`, if nodemon was installed, as it is a devDependency, with nodemon the application restarts automatically. If not, use `node src/index.js` but the application has to be restarted manually.
+To start listening for requests and fill up the database with some data from the NASA APOD database, use `nodemon src/index.js` or `npm run dev`, if nodemon was installed, as it is a devDependency. With nodemon the application restarts automatically. If not, use `node src/index.js` but the application has to be restarted manually.
 
 ### Valid endpoints to execute CRUD operations
 - POST /api/v1/pictures
@@ -38,6 +38,6 @@ To see the graphic implementation and test the astronomy API endpoints go to the
 ## Deployment
 The link for the documentation of the deployed API is the following : `https://astronomy-restful-api.herokuapp.com/api/v1/docs/` wait a couple of seconds to interact with the endpoints, since the API is getting data from de NASA database.
 
-Both, the deployed and local version should return JSON responses for each valid request.
+Both, the deployed and local version, should return JSON responses for each valid request.
 
 
