@@ -120,12 +120,17 @@ router.post('/', pictureController.createNewPicture);
  *              name : url
  *              schema :
  *                  type : string
- *              description: Returns a list of Pictures where the query appears in any of the picture's url from the database, using regular expressions.
+ *              description: Returns a list of Pictures based on the picture's url from the database.
  *          -   in : query
  *              name : hdurl
  *              schema :
  *                  type : string
- *              description: Returns a list of Pictures where the query appears in any of the picture's hdurl from the database, using regular expressions.
+ *              description: Returns a list of Pictures based on the picture's hdurl from the database.
+ *          -   in : query
+ *              name : page
+ *              schema :
+ *                  type : string
+ *              description: Returns a list of Pictures based on the page
  *              
  *          responses:
  *              200:
