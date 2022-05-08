@@ -11,7 +11,7 @@ require('dotenv').config();
 const Picture = require('./models/picture');
 
 // Localhost FOR TESTING IN LOCAL
-/*
+
 async function main() {
     try{
         const db = await mongoose.connect(process.env.DB_LOCAL_URL);
@@ -22,10 +22,10 @@ async function main() {
         console.error(err);
     }
 }
-*/
+
 
 // Cloud MongoDB Atlas for DEPLOYMENT ONLY
-
+/*
 async function main() {
     try{
         const db = await mongoose.connect(process.env.MONGODB_URI);
@@ -36,7 +36,7 @@ async function main() {
         console.error(err);
     }
 }
-
+*/
 main();
 
 // Delete all, for testing
