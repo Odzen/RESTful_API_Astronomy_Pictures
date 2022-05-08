@@ -24,6 +24,7 @@ To start the listening for requests and fill up with the local database with som
 - GET  /api/v1/pictures/{pictureId}
 - PATCH /api/v1/pictures/{pictureId}
 - Delete /api/v1/pictures/{pictureId}
+Look to the Documentation for more information
 
 ### Documentation
 The documentation for this API was made using the npm packages `swagger-ui-express` and `swagger-jsdoc`.
